@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_location/utils/global.colors.dart';
 import 'package:flutter_location/view/login.veiw.dart';
+import 'package:flutter_location/view/showroom.dart';
 import 'package:get/get.dart';
 
 class SplashView extends StatelessWidget {
@@ -9,12 +10,12 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () => Get.to(LoginView()));
+    Timer(const Duration(seconds: 2), () => Get.to(Showroom()));
     return Scaffold(
       backgroundColor: GlobalColors.mainColor,
       body: const Center(
         child: Image(
-          image: AssetImage('assets/images/logo.jpg'), // Corrected path
+          image: AssetImage('assets/images/logo.png'), // Corrected path
           width: 459,
           height: 312,
         ),

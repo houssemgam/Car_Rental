@@ -5,71 +5,80 @@ class SocialLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch, // Align buttons to edges
-        children: [
-          Text(
-            '- Ou se connecter avec -',
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontWeight: FontWeight.w600,
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              '- Ou se connecter avec -',
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center, // Center text
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildSocialLoginButton(context, 'Google', Colors.red,
-                  () => handleGoogleSignIn()),
-              const SizedBox(width: 20.0),
-              _buildSocialLoginButton(context, 'Facebook', Colors.blue,
-                  () => handleFacebookSignIn()),
-              const SizedBox(width: 20.0),
-              _buildSocialLoginButton(context, 'Apple', Colors.black,
-                  () => handleAppleSignIn()),
-            ],
-          ),
-        ],
+            const SizedBox(height: 20.0),
+            SizedBox(
+              height: 80.0, // Set a fixed height for buttons
+              child: Column(
+                children: [
+                  _buildSocialLoginButton(
+                    context,
+                    'assets/images/google.png',
+                    'Continue avec Google',
+                    Colors.white,
+                    handleGoogleSignIn,
+                  ),
+                  const SizedBox(height: 10.0),
+                  _buildSocialLoginButton(
+                    context,
+                    'assets/images/facebook.png',
+                    'Continue avec Facebook',
+                    Colors.blue,
+                    handleFacebookSignIn,
+                  ),
+                  const SizedBox(height: 10.0),
+                  _buildSocialLoginButton(
+                    context,
+                    'assets/images/apple.png',
+                    'Continue avec Apple',
+                    Colors.black,
+                    handleAppleSignIn,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildSocialLoginButton(
-      BuildContext context, String provider, Color color, VoidCallback onTap) {
+      BuildContext context, String imagePath, String text, Color color, VoidCallback onTap) {
     return MaterialButton(
       onPressed: onTap,
       color: color,
+      height: 60.0,
+      minWidth: double.infinity, // Set button width to match parent
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Use provider-specific icons for Google, Facebook, Apple
-          Icon(_getProviderIcon(provider), color: Colors.white),
-          const SizedBox(width: 10.0),
+          Image.asset(
+            imagePath,
+            height: 30, // Adjust the image height as needed
+          ),
+          const SizedBox(width: 10.0), // Add space between image and text
           Text(
-            provider,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            text,
+            style: TextStyle(color: text == 'Continue avec Google' ? Colors.black : Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),
     );
-  }
-
-  IconData _getProviderIcon(String provider) {
-    // Map provider names to their icons
-    switch (provider) {
-      case 'Google':
-        return Icons.g_mobiledata;
-      case 'Facebook':
-        return Icons.facebook;
-      case 'Apple':
-        return Icons.apple;
-      default:
-        return Icons.lightbulb_outline;
-    }
   }
 
   // Implement these functions with actual sign-in logic

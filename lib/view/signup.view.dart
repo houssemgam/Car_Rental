@@ -26,9 +26,9 @@ class SignupView extends StatelessWidget {
                 // Logo (replace with your logo image or widget)
                 const Center(
                   child: Image(
-                    image: AssetImage('assets/images/your_logo.png'), // Replace with your logo path
-                    height: 100.0, // Adjust logo size as needed
-                  ),
+                    image: AssetImage('assets/images/logo2.png'), // Replace with your logo path
+                              width: 169,
+                             height: 115,                   ),
                 ),
                 const SizedBox(height: 40.0), 
                 Text(
