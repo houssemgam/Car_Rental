@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class NavigationItem {
+  final String imagePath;
 
-  IconData iconData;
-
-  NavigationItem(this.iconData);
-
+  NavigationItem(this.imagePath);
 }
 
 List<NavigationItem> getNavigationItemList(){
   return <NavigationItem>[
-    NavigationItem(Icons.home),
-    NavigationItem(Icons.calendar_today),
-    NavigationItem(Icons.notifications),
-    NavigationItem(Icons.person),
+    NavigationItem("assets/images/home.png"),
+    NavigationItem("assets/images/heart.png"),
+    NavigationItem("assets/images/plus.png"),
+    NavigationItem("assets/images/notif.png"),
+    NavigationItem("assets/images/person.png"),
   ];
 }
+
 
 class Car {
 

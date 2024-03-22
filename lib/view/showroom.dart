@@ -112,12 +112,12 @@ class _ShowroomState extends State<Showroom> {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 70,
+        height: 67,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFF54E6B5),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
           ),
         ),
         child: Row(
@@ -129,14 +129,12 @@ class _ShowroomState extends State<Showroom> {
   }
 
   List<Widget> buildCars() {
-    List<Widget> list = [];
-    for (var i = 0; i < cars.length; i++) {
-      list.add(buildCar(cars[i], i));
-    }
-    return list;
+    return cars.map((car) {
+      return buildCar(car);
+    }).toList();
   }
 
-  Widget buildCar(Car car, int index) {
+  Widget buildCar(Car car) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -210,8 +208,8 @@ class _ShowroomState extends State<Showroom> {
                   (car.condition == "Daily"
                       ? "day"
                       : car.condition == "Weekly"
-                          ? "week"
-                          : "month"),
+                      ? "week"
+                      : "month"),
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
@@ -224,11 +222,9 @@ class _ShowroomState extends State<Showroom> {
   }
 
   List<Widget> buildNavigationItems() {
-    List<Widget> list = [];
-    for (var navigationItem in navigationItems) {
-      list.add(buildNavigationItem(navigationItem));
-    }
-    return list;
+    return navigationItems.map((item) {
+      return buildNavigationItem(item);
+    }).toList();
   }
 
   Widget buildNavigationItem(NavigationItem item) {
@@ -240,28 +236,13 @@ class _ShowroomState extends State<Showroom> {
       },
       child: Container(
         width: 50,
-        child: Stack(
-          children: <Widget>[
-            selectedItem == item
-                ? Center(
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kPrimaryColorShadow,
-                      ),
-                    ),
-                  )
-                : Container(),
-            Center(
-              child: Icon(
-                item.iconData,
-                color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
-                size: 24,
-              ),
-            )
-          ],
+        child: Center(
+          child: Image.asset(
+            item.imagePath,
+            color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
+            width: 24,
+            height: 24,
+          ),
         ),
       ),
     );
