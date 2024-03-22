@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_location/view/constants.dart';
 import 'package:flutter_location/view/data.dart';
 
-
 class BookCar extends StatefulWidget {
-
   final Car car;
 
   BookCar({required this.car});
@@ -14,10 +12,9 @@ class BookCar extends StatefulWidget {
 }
 
 class _BookCarState extends State<BookCar> {
-
   int _currentImage = 0;
 
-  List<Widget> buildPageIndicator(){
+  List<Widget> buildPageIndicator() {
     List<Widget> list = [];
     for (var i = 0; i < widget.car.images.length; i++) {
       list.add(buildIndicator(i == _currentImage));
@@ -25,7 +22,7 @@ class _BookCarState extends State<BookCar> {
     return list;
   }
 
-  Widget buildIndicator(bool isActive){
+  Widget buildIndicator(bool isActive) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 6),
@@ -50,20 +47,17 @@ class _BookCarState extends State<BookCar> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Expanded(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
@@ -84,106 +78,26 @@ class _BookCarState extends State<BookCar> {
                                   Icons.keyboard_arrow_left,
                                   color: Colors.black,
                                   size: 28,
-                                )
+                                ),
                               ),
                             ),
-
-                            Row(
-                              children: [
-
-                                Container(
-                                  width: 45,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.bookmark_border,
-                                    color: Colors.white,
-                                    size: 22,
-                                  )
-                                ),
-
-                                SizedBox(
-                                  width: 16,
-                                ),
-
-                                Container(
-                                  width: 45,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    border: Border.all(
-                                      color: Colors.grey,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.share,
-                                    color: Colors.black,
-                                    size: 22,
-                                  )
-                                ),
-
-                              ],
-                            ),
-
                           ],
                         ),
                       ),
-
-                      SizedBox(
-                        height: 16,
-                      ),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          widget.car.model,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: 8,
-                      ),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          widget.car.brand,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: 8,
-                      ),
-
                       Expanded(
                         child: Container(
                           child: PageView(
                             physics: BouncingScrollPhysics(),
-                            onPageChanged: (int page){
+                            onPageChanged: (int page) {
                               setState(() {
                                 _currentImage = page;
                               });
                             },
                             children: widget.car.images.map((path) {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16,),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 child: Hero(
                                   tag: widget.car.model,
                                   child: Image.asset(
@@ -196,245 +110,330 @@ class _BookCarState extends State<BookCar> {
                           ),
                         ),
                       ),
-
-                      widget.car.images.length > 1
-                      ? Container(
-                        margin: EdgeInsets.symmetric(vertical: 16),
-                        height: 30,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: buildPageIndicator(),
-                        ),
-                      )
-                      : Container(),
-
+                      SizedBox(
+                        height: 16,
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        child: Text(
+                          widget.car.model,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          widget.car.brand,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      widget.car.images.length > 1
+                          ? Container(
+                              margin: EdgeInsets.symmetric(vertical: 16),
+                              height: 30,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: buildPageIndicator(),
+                              ),
+                            )
+                          : Container(),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                            buildPricePerPeriod(
-                              "12",
-                              "4.350",
-                              true,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 16,
+                                left: 16,
+                                right: 16,
+                              ),
+                              child: Text(
+                                "SPECIFICATIONS",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
                             ),
-                            SizedBox(
-                              width: 16,
+                            Container(
+                              height: 80,
+                              padding: EdgeInsets.only(top: 8, left: 16),
+                              margin: EdgeInsets.only(bottom: 16),
+                              child: ListView(
+                                physics: BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  buildSpecificationCar("Color", "White"),
+                                  buildSpecificationCar("Gearbox", "Automatic"),
+                                  buildSpecificationCar("Seat", "4"),
+                                  buildSpecificationCar("Motor", "v10 2.0"),
+                                  buildSpecificationCar("Speed (0-100)",
+                                      "3.2 sec"),
+                                  buildSpecificationCar("Top Speed", "121 mph"),
+                                ],
+                              ),
                             ),
-                            buildPricePerPeriod(
-                              "6",
-                              "4.800",
-                              false,
-                            ),
-                            SizedBox(
-                              width: 16,
-                            ),
-                            buildPricePerPeriod(
-                              "1",
-                              "5.100",
-                              false,
-                            ),
-
                           ],
                         ),
                       ),
-
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          'Description: ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'DM Sans',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo',
+                          style: TextStyle(
+                            color: Color(0xFF939393),
+                            fontSize: 13,
+                            fontFamily: 'DM Sans',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-              
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Padding(
-                      padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-                      child: Text(
-                        "SPECIFICATIONS",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      height: 80,
-                      padding: EdgeInsets.only(top: 8, left: 16,),
-                      margin: EdgeInsets.only(bottom: 16),
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          buildSpecificationCar("Color", "White"),
-                          buildSpecificationCar("Gearbox", "Automatic"),
-                          buildSpecificationCar("Seat", "4"),
-                          buildSpecificationCar("Motor", "v10 2.0"),
-                          buildSpecificationCar("Speed (0-100)", "3.2 sec"),
-                          buildSpecificationCar("Top Speed", "121 mph"),
-                        ],
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-
             ],
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        height: 90,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                Text(
-                  "12 Month",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-
-                SizedBox(
-                  height: 4,
-                ),
-
-                Row(
-                  children: [
-
-                    Text(
-                      "USD 4,350",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ),
-
-                    SizedBox(
-                      width: 8,
-                    ),
-
-                    Text(
-                      "per month",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-
-                  ],
-                ),
-
-              ],
-            ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    "Book this car",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  height: 185,
+  width: 430,
+  decoration: ShapeDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(0.00, -1.00),
+      end: Alignment(0, 1),
+      colors: [
+        Color(0xFF54E6B5),
+        Color(0x7654E6B5),
+        Color(0x0054E6B5)
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(26),
+        topRight: Radius.circular(21),
       ),
-    );
-  }
-
-  Widget buildPricePerPeriod(String months, String price, bool selected){
-    return Expanded(
-      child: Container(
-        height: 110,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: selected ? kPrimaryColor : Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-          border: Border.all(
-            color: Colors.grey,
-            width: selected ? 0 : 1,
-          ),
-        ),
+    ),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             Text(
-              months + " Month",
+              'Propriétaire de la voiture',
               style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 13,
+                fontFamily: 'DM Sans',
+                fontWeight: FontWeight.w400,
+                height: 0,
               ),
             ),
-
-            Expanded(
-              child: Container(),
-            ),
-
+            SizedBox(height: 4),
             Text(
-              price,
+              'Mohamed Mansour',
               style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 16,
+                fontFamily: 'DM Sans',
+                fontWeight: FontWeight.w700,
+                height: 0,
               ),
             ),
-
-            Text(
-              "USD",
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
+            SizedBox(height: 4),
+            Container(
+              width: 39,
+              height: 39,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "https://via.placeholder.com/39x39"),
+                  fit: BoxFit.fill,
+                ),
+                shape: OvalBorder(),
               ),
             ),
-
           ],
         ),
       ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 16.32,
+            height: 16.32,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: Container(
+                    width: 16.32,
+                    height: 16.32,
+                    decoration: ShapeDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "https://via.placeholder.com/16x16"),
+                        fit: BoxFit.fill,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1.50,
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(1),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 3.10,
+                  top: 7.18,
+                  child: Container(
+                    width: 10.20,
+                    height: 2.04,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 2.04,
+                            height: 2.04,
+                            decoration: ShapeDecoration(
+                              color: Colors.black,
+                              shape: OvalBorder(),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 4.08,
+                          top: 0,
+                          child: Container(
+                            width: 2.04,
+                            height: 2.04,
+                            decoration: ShapeDecoration(
+                              color: Colors.black,
+                              shape: OvalBorder(),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 8.16,
+                          top: 0,
+                          child: Container(
+                            width: 2.04,
+                            height: 2.04,
+                            decoration: ShapeDecoration(
+                              color: Colors.black,
+                              shape: OvalBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 8),
+          Container(
+            width: 222,
+            height: 35,
+            padding: const EdgeInsets.all(16),
+            decoration: ShapeDecoration(
+              color: Color(0xFFBF2135),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Commander',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'DM Sans',
+                  fontWeight: FontWeight.w700,
+                  height: 0.09,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Prix de location:',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 10,
+              fontFamily: 'DM Sans',
+              fontWeight: FontWeight.w400,
+              height: 0,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            '350DT/Jour',
+            style: TextStyle(
+              color: Color(0xFFBF2135),
+              fontSize: 15,
+              fontFamily: 'DM Sans',
+              fontWeight: FontWeight.w700,
+              height: 0,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
     );
   }
 
-  Widget buildSpecificationCar(String title, String data){
+  Widget buildSpecificationCar(String title, String data) {
     return Container(
       width: 130,
       decoration: BoxDecoration(
@@ -443,13 +442,15 @@ class _BookCarState extends State<BookCar> {
           Radius.circular(15),
         ),
       ),
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16,),
+      padding: EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 16,
+      ),
       margin: EdgeInsets.only(right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Text(
             title,
             style: TextStyle(
@@ -457,11 +458,9 @@ class _BookCarState extends State<BookCar> {
               fontSize: 14,
             ),
           ),
-
           SizedBox(
             height: 8,
           ),
-
           Text(
             data,
             style: TextStyle(
@@ -470,10 +469,9 @@ class _BookCarState extends State<BookCar> {
               fontWeight: FontWeight.bold,
             ),
           ),
-
         ],
       ),
     );
   }
-
 }
+

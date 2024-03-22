@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
+import 'package:flutter_location/utils/global.colors.dart';
 import 'package:flutter_location/view/book_car.dart';
-import 'package:flutter_location/view/car_widget.dart';
 import 'package:flutter_location/view/constants.dart';
 import 'package:flutter_location/view/data.dart';
-
 
 class Showroom extends StatefulWidget {
   @override
@@ -31,64 +28,65 @@ class _ShowroomState extends State<Showroom> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Car Rental App",
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(
-              Icons.menu,
-              color: Colors.black,
-              size: 28,
-            ),
-          )
-        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-
           Container(
             padding: EdgeInsets.only(bottom: 10),
             child: Padding(
               padding: EdgeInsets.all(16),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  hintStyle: TextStyle(fontSize: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 0, 
-                      style: BorderStyle.none,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Louez votre liberté sur quatre roues',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  filled: true,
-                  fillColor: Colors.grey[100],
-                  contentPadding: EdgeInsets.only(left: 30,),
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 24.0, left: 16.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: 24,
-                    ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search',
+                            hintStyle: TextStyle(fontSize: 16),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[100],
+                            contentPadding: EdgeInsets.only(left: 30),
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.only(right: 16.0, left: 8.0),
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      IconButton(
+                        onPressed: () {
+                          // Add filter functionality here
+                        },
+                        icon: Icon(Icons.filter_list),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
             ),
           ),
-
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -100,189 +98,17 @@ class _ShowroomState extends State<Showroom> {
                     topRight: Radius.circular(30),
                   ),
                 ),
-                child: Column(
-                  children: [
-
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            "TOP DEALS",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[400],
-                            ),
-                          ),
-
-                          Row(
-                            children: [
-
-                              Text(
-                                "view all",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-
-                              SizedBox(
-                                width: 8,
-                              ),
-
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 12,
-                                color: kPrimaryColor,
-                              ),
-
-                            ],
-                          ),
-
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      height: 280,
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: buildDeals(),
-                      ),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                       
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 16, right: 16, left: 16),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                          ),
-                          padding: EdgeInsets.all(24),
-                          height: 100,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-
-                                  Text(
-                                    "Available Cars",
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                  Text(
-                                    "Long term and short term",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
-                                ),
-                                height: 50,
-                                width: 50,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            "TOP DEALERS",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[400],
-                            ),
-                          ),
-
-                          Row(
-                            children: [
-
-                              Text(
-                                "view all",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-
-                              SizedBox(
-                                width: 8,
-                              ),
-
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 12,
-                                color: kPrimaryColor,
-                              ),
-
-                            ],
-                          ),
-
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      height: 150,
-                      margin: EdgeInsets.only(bottom: 16),
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: buildDealers(),
-                      ),
-                    ),
-
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    spacing: 16.0,
+                    runSpacing: 16.0,
+                    children: buildCars(),
+                  ),
                 ),
               ),
             ),
           ),
-
         ],
       ),
       bottomNavigationBar: Container(
@@ -292,7 +118,7 @@ class _ShowroomState extends State<Showroom> {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
-          )
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -302,29 +128,102 @@ class _ShowroomState extends State<Showroom> {
     );
   }
 
-  List<Widget> buildDeals(){
+  List<Widget> buildCars() {
     List<Widget> list = [];
     for (var i = 0; i < cars.length; i++) {
-      list.add(
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BookCar(car: cars[i])),
-            );
-          },
-          child: buildCar(cars[i], i)
-        )
-      );
+      list.add(buildCar(cars[i], i));
     }
     return list;
   }
 
-  List<Widget> buildDealers(){
-    
+  Widget buildCar(Car car, int index) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BookCar(car: car)),
+        );
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width / 2 - 24,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(
+                    car.condition,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              height: 80,
+              child: Center(
+                child: Hero(
+                  tag: car.model,
+                  child: Image.asset(
+                    car.images[0],
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              car.model,
+              style: TextStyle(fontSize: 14),
+            ),
+            SizedBox(height: 4),
+            Text(
+              car.brand,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                height: 1,
+              ),
+            ),
+            Text(
+              "per " +
+                  (car.condition == "Daily"
+                      ? "day"
+                      : car.condition == "Weekly"
+                          ? "week"
+                          : "month"),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  List<Widget> buildNavigationItems(){
+  List<Widget> buildNavigationItems() {
     List<Widget> list = [];
     for (var navigationItem in navigationItems) {
       list.add(buildNavigationItem(navigationItem));
@@ -332,7 +231,7 @@ class _ShowroomState extends State<Showroom> {
     return list;
   }
 
-  Widget buildNavigationItem(NavigationItem item){
+  Widget buildNavigationItem(NavigationItem item) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -343,20 +242,18 @@ class _ShowroomState extends State<Showroom> {
         width: 50,
         child: Stack(
           children: <Widget>[
-
-            selectedItem == item 
-            ? Center(
-              child: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kPrimaryColorShadow,
-                ),
-              ),
-            )
-            : Container(),
-
+            selectedItem == item
+                ? Center(
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: kPrimaryColorShadow,
+                      ),
+                    ),
+                  )
+                : Container(),
             Center(
               child: Icon(
                 item.iconData,
@@ -364,11 +261,9 @@ class _ShowroomState extends State<Showroom> {
                 size: 24,
               ),
             )
-
           ],
         ),
       ),
     );
   }
-
 }
