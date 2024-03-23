@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_location/view/constants.dart';
 import 'package:flutter_location/view/data.dart';
 
 class BookCar extends StatefulWidget {
@@ -167,14 +166,7 @@ class _BookCarState extends State<BookCar> {
                                 left: 16,
                                 right: 16,
                               ),
-                              child: Text(
-                                "SPECIFICATIONS",
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[400],
-                                ),
-                              ),
+                              
                             ),
                             Container(
                               height: 80,

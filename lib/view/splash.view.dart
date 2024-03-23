@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_location/utils/global.colors.dart';
-import 'package:flutter_location/view/login.veiw.dart';
+
 import 'package:flutter_location/view/showroom.dart';
 import 'package:get/get.dart';
 

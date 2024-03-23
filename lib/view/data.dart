@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 
 class NavigationItem {
   final String imagePath;
 
   NavigationItem(this.imagePath);
+
+  get title => null;
 }
 
 List<NavigationItem> getNavigationItemList(){

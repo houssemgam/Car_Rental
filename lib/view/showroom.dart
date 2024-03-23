@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_location/utils/global.colors.dart';
 import 'package:flutter_location/view/book_car.dart';
 import 'package:flutter_location/view/constants.dart';
 import 'package:flutter_location/view/data.dart';
@@ -10,17 +9,15 @@ class Showroom extends StatefulWidget {
 }
 
 class _ShowroomState extends State<Showroom> {
-  List<NavigationItem> navigationItems = getNavigationItemList();
   late NavigationItem selectedItem;
 
   List<Car> cars = getCarList();
-  List<Dealer> dealers = getDealerList();
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      selectedItem = navigationItems[0];
+      selectedItem = getNavigationItemList()[0];
     });
   }
 
@@ -28,102 +25,137 @@ class _ShowroomState extends State<Showroom> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Louez votre liberté sur quatre roues',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromRGBO(166, 234, 211, 1.0), // RGB(166, 234, 211)
+                    Color.fromRGBO(93, 230, 184, 1.0), // RGB(93, 230, 184)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 20,
+            left: 20,
+            right: 20,
+            child: Text(
+              'Louez votre liberté\nsur quatre roues',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search',
-                            hintStyle: TextStyle(fontSize: 16),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.grey[100],
-                            contentPadding: EdgeInsets.only(left: 30),
-                            suffixIcon: Padding(
-                              padding: EdgeInsets.only(right: 16.0, left: 8.0),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                                size: 24,
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Search',
+                                hintStyle: TextStyle(fontSize: 16),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey[100],
+                                contentPadding: EdgeInsets.only(left: 30),
+                                suffixIcon: Padding(
+                                  padding: EdgeInsets.only(right: 16.0, left: 8.0),
+                                  child: Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                    size: 24,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      IconButton(
-                        onPressed: () {
-                          // Add filter functionality here
-                        },
-                        icon: Icon(Icons.filter_list),
+                          SizedBox(width: 8),
+                          IconButton(
+                            onPressed: () {
+                              // Add filter functionality here
+                            },
+                            icon: Icon(Icons.filter_list),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Wrap(
-                    spacing: 16.0,
-                    runSpacing: 16.0,
-                    children: buildCars(),
-                  ),
                 ),
               ),
-            ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20), // Adjust spacing as needed
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Text(
+                                'Meilleure offre',
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF54E6B5),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10), // Adjust spacing as needed
+                          Wrap(
+                            spacing: 16.0,
+                            runSpacing: 16.0,
+                            children: buildCars(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
-      ),
-      bottomNavigationBar: Container(
-        height: 67,
-        decoration: BoxDecoration(
-          color: Color(0xFF54E6B5),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: buildNavigationItems(),
-        ),
       ),
     );
   }
@@ -208,41 +240,14 @@ class _ShowroomState extends State<Showroom> {
                   (car.condition == "Daily"
                       ? "day"
                       : car.condition == "Weekly"
-                      ? "week"
-                      : "month"),
+                          ? "week"
+                          : "month"),
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  List<Widget> buildNavigationItems() {
-    return navigationItems.map((item) {
-      return buildNavigationItem(item);
-    }).toList();
-  }
-
-  Widget buildNavigationItem(NavigationItem item) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedItem = item;
-        });
-      },
-      child: Container(
-        width: 50,
-        child: Center(
-          child: Image.asset(
-            item.imagePath,
-            color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
-            width: 24,
-            height: 24,
-          ),
         ),
       ),
     );
